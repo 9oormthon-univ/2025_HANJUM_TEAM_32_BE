@@ -1,7 +1,7 @@
 package com.hanjum.newshanjumapi.global.config;
 
+import com.hanjum.newshanjumapi.global.resolver.AuthMemberArgumentResolver;
 import lombok.RequiredArgsConstructor;
-import org.chungnamthon.zeroroad.global.resolver.AuthMemberArgumentResolver;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
