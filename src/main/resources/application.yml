@@ -1,7 +1,0 @@
-spring:
-  profiles:
-    default: local-env
-    group:
-      local-env: local, swagger, s3, oauth
-      prod-env: prod, swagger, s3, oauth
-
