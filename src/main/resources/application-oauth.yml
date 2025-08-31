@@ -1,0 +1,21 @@
+#spring:
+#  security:
+#    oauth2:
+#      client:
+#        registration:
+#          kakao:
+#            client-name: kakao
+#            client-id:
+#            client-secret:
+#            redirect-uri:
+#            client-authentication-method:
+#            authorization-grant-type:
+#            scope:
+#        provider:
+#          kakao:
+#            authorization-uri:
+#            token-uri:
+#            user-info-uri:
+#            user-name-attribute:
+#
+#

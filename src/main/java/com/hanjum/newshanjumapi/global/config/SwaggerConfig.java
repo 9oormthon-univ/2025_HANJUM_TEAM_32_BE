@@ -104,7 +104,7 @@ public class SwaggerConfig {
     private Info getApiInfo() {
         return new Info()
                 .title("")
-                .description("Zeroroad API 문서")
+                .description("hanjum API 문서")
                 .version("1.0.0");
     }
 

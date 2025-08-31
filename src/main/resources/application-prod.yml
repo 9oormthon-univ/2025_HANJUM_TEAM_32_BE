@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://hanjum-db.asdfg12345.ap-northeast-2.rds.amazonaws.com:3306/hanjumdb
+    username: nanakyeong
+    password: Skrud468@@
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+        show-sql: true
+  jwt:
+    secretKey:
+logging:
+  level:
+    org.springframework.security: TRACE
+    org.hibernate.SQL: debug
+    org.hibernate.type.descriptor.sql: trace
+
+

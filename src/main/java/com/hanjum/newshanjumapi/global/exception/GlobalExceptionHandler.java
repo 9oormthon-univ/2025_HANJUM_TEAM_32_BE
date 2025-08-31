@@ -1,8 +1,8 @@
 package com.hanjum.newshanjumapi.global.exception;
 
+import com.hanjum.newshanjumapi.global.exception.dto.ErrorStatus;
+import com.hanjum.newshanjumapi.global.exception.dto.response.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.chungnamthon.zeroroad.global.exception.dto.ErrorStatus;
-import org.chungnamthon.zeroroad.global.exception.dto.response.ErrorResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;

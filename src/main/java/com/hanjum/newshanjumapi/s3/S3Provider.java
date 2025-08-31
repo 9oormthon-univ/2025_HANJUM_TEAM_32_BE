@@ -1,10 +1,7 @@
 package com.hanjum.newshanjumapi.s3;
 
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.chungnamthon.zeroroad.global.exception.InternalServerException;
-import org.chungnamthon.zeroroad.global.exception.dto.ErrorStatus;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,19 +10,17 @@ import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 import software.amazon.awssdk.services.s3.model.GetUrlRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
-import software.amazon.awssdk.services.s3.model.S3Exception;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.UUID;
 
 @Slf4j
 @RequiredArgsConstructor
-@Getter
 @Component
 public class S3Provider {
 
     private final S3Client s3Client;
-    private final ImageValidator imageValidator;
 
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
@@ -33,59 +28,76 @@ public class S3Provider {
     @Value("${cloud.aws.s3.dir}")
     private String dir;
 
-    public String uploadImage(MultipartFile file) {
-        imageValidator.validateFile(file);
+    public String upload(MultipartFile file) {
+        if (file == null || file.isEmpty()) {
+            // TODO: 비어있는 파일에 대한 예외 처리
+            return null;
+        }
 
         String fileName = createFileName(file);
 
-        uploadImageToS3(file, fileName, s3Client);
-
-        return getFileUrl(fileName);
-    }
-
-    public void deleteImage(String imageUrl) {
-        log.info("삭제할 이미지 url: {}", imageUrl);
         try {
-            DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
-                    .bucket(bucket)
-                    .key(imageUrl)
-                    .build();
-            s3Client.deleteObject(deleteObjectRequest);
-        } catch (S3Exception e) {
-            throw new InternalServerException(ErrorStatus.AWS_S3_ERROR);
-        } catch (Exception ex) {
-            throw new InternalServerException(ErrorStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    private void uploadImageToS3(MultipartFile file, String fileName, S3Client s3Client) {
-        try {
-            RequestBody requestBody = RequestBody.fromBytes(file.getBytes());
             PutObjectRequest putObjectRequest = PutObjectRequest.builder()
                     .bucket(bucket)
                     .key(fileName)
                     .contentType(file.getContentType())
                     .contentLength(file.getSize())
                     .build();
-            s3Client.putObject(putObjectRequest, requestBody);
-        } catch (IOException | S3Exception e) {
-            throw new InternalServerException(ErrorStatus.FAILED_TO_UPLOAD_FILE);
+
+            s3Client.putObject(putObjectRequest, RequestBody.fromBytes(file.getBytes()));
+            return getFileUrl(fileName);
+        } catch (IOException e) {
+            log.error("S3 파일 업로드 중 입출력 예외가 발생했습니다.", e);
+            // TODO: 업로드 실패에 대한 예외 처리
+            throw new RuntimeException("S3 파일 업로드에 실패했습니다.", e);
+        }
+    }
+
+    public void delete(String fileUrl) {
+        if (fileUrl == null || fileUrl.isBlank()) {
+            return;
         }
 
+        try {
+            String key = getKeyFromUrl(fileUrl);
+            DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
+                    .bucket(bucket)
+                    .key(key)
+                    .build();
+
+            s3Client.deleteObject(deleteObjectRequest);
+            log.info("S3에서 파일 삭제 성공: {}", key);
+        } catch (Exception e) {
+            log.error("S3 파일 삭제 중 예외가 발생했습니다. URL: {}", fileUrl, e);
+            // TODO: 삭제 실패에 대한 예외 처리
+        }
     }
 
-    // 이미지 파일 이름 중복 예방으로 UUID 사용.
     private String createFileName(MultipartFile file) {
-        return dir + UUID.randomUUID() + "-" + file.getOriginalFilename();
+        return dir + "/" + UUID.randomUUID() + "-" + file.getOriginalFilename();
     }
 
-    public String getFileUrl(String filename) {
+    private String getFileUrl(String filename) {
         GetUrlRequest getUrlRequest = GetUrlRequest.builder()
                 .bucket(bucket)
                 .key(filename)
                 .build();
-
-        return String.valueOf(s3Client.utilities().getUrl(getUrlRequest));
+        URL url = s3Client.utilities().getUrl(getUrlRequest);
+        return url.toString();
     }
 
+    private String getKeyFromUrl(String fileUrl) {
+        String baseUrl = "https://" + bucket + ".s3.";
+        int beginIndex = fileUrl.indexOf(baseUrl);
+        if (beginIndex == -1) {
+            log.warn("S3 URL에서 기본 형식을 찾지 못했습니다: {}", fileUrl);
+            try {
+                URL url = new URL(fileUrl);
+                return url.getPath().substring(1);
+            } catch (Exception e) {
+                return null;
+            }
+        }
+        return fileUrl.substring(fileUrl.indexOf("/", beginIndex + baseUrl.length()) + 1);
+    }
 }
