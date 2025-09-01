@@ -24,7 +24,11 @@ jobs:
         host: ${{ secrets.AWS_HOST }} 
         username: ubuntu
         key: ${{ secrets.AWS_PEM_KEY }} 
-        script: | # EC2 서버에서 실행할 명령어
-          cd /home/ubuntu/2025_HANJUM_TEAM_32_BE
-          sudo kill -9 $(pgrep -f .jar) || true
-          nohup java -jar build/libs/*.jar &
+        script: |
+            cd /home/ubuntu/2025_HANJUM_TEAM_32_BE
+            git pull origin main
+            export GRADLE_OPTS="-Xmx1024m"
+            ./gradlew clean build -x test
+            pgrep -f '.jar' | xargs -r kill -9
+            nohup java -jar build/libs/*.jar &
+
