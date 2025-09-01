@@ -52,7 +52,10 @@ jobs:
           key: ${{ secrets.AWS_PEM_KEY }}
           script: |
             cd /home/ubuntu/2025_HANJUM_TEAM_32_BE
-            # 기존에 실행 중이던 서버 프로세스를 종료
+            echo "${{ secrets.APPLICATION_PROD_YML }}" > src/main/resources/application-prod.yml
+            echo "${{ secrets.APPLICATION_YML }}" > src/main/resources/application.yml
+            echo "${{ secrets.APPLICATION_SWAGGER_YML }}" > src/main/resources/application-swagger.yml
+            echo "${{ secrets.APPLICATION_S3_YML }}" > src/main/resources/application-s3.yml
+            echo "${{ secrets.APPLICATION_LOCAL_YML }}" > src/main/resources/application-local.yml
             pgrep -f '.jar' | xargs -r kill -9
-            # 새로 받은 jar 파일로 서버를 백그라운드에서 실행 (메모리 제한 포함)
-            nohup java -Xmx512m -jar *.jar &
+            nohup java -Xmx512m -jar *.jar --spring.profiles.active=prod &
