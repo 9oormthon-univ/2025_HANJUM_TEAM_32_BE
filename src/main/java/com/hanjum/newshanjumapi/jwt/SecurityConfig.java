@@ -22,7 +22,6 @@ public class SecurityConfig {
                 .httpBasic(httpBasic -> httpBasic.disable())
 
                 .authorizeHttpRequests(authorize -> authorize
-                        // --- 👇 This section is modified ---
                         .requestMatchers(
                                 "/",
                                 "/login",
@@ -32,7 +31,7 @@ public class SecurityConfig {
                         ).permitAll()
                         .requestMatchers(
                                 "/api/members/me",
-                                "/api/members/{memberId}/topics"
+                                "/api/scraps/**"
                         ).authenticated()
                         .anyRequest().permitAll()
                 )
