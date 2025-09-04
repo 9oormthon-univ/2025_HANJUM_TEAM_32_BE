@@ -1,6 +1,6 @@
 package com.hanjum.newshanjumapi.domain.scrap.entity;
 
-import com.hanjum.newshanjumapi.domain.Article;
+import com.hanjum.newshanjumapi.domain.article.entity.Article;
 import com.hanjum.newshanjumapi.domain.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -12,9 +12,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
-/**
- * 회원별 뉴스 스크랩 정보를 저장하는 엔티티
- */
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

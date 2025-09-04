@@ -1,7 +1,7 @@
 package com.hanjum.newshanjumapi.domain.scrap.service;
 
-import com.hanjum.newshanjumapi.domain.Article;
-import com.hanjum.newshanjumapi.domain.ArticleRepository;
+import com.hanjum.newshanjumapi.domain.article.repository.ArticleRepository;
+import com.hanjum.newshanjumapi.domain.article.entity.Article;
 import com.hanjum.newshanjumapi.domain.member.entity.Member;
 import com.hanjum.newshanjumapi.domain.member.repository.MemberRepository;
 import com.hanjum.newshanjumapi.domain.scrap.dto.ScrapRequestDto;

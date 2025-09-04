@@ -1,6 +1,6 @@
 package com.hanjum.newshanjumapi.domain.scrap.controller;
 
-import com.hanjum.newshanjumapi.domain.Article;
+import com.hanjum.newshanjumapi.domain.article.entity.Article;
 import com.hanjum.newshanjumapi.domain.scrap.dto.ScrapRequestDto;
 import com.hanjum.newshanjumapi.domain.scrap.dto.ScrapResponseDto;
 import com.hanjum.newshanjumapi.global.exception.dto.response.ApiResponse;
