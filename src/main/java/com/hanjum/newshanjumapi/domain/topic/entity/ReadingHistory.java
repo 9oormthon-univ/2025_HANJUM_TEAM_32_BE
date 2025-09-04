@@ -1,12 +1,9 @@
-package com.hanjum.newshanjumapi.domain.scrap.entity;
+package com.hanjum.newshanjumapi.domain.topic.entity;
 
 import com.hanjum.newshanjumapi.domain.article.entity.Article;
 import com.hanjum.newshanjumapi.domain.member.entity.Member;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -15,30 +12,26 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "scrap")
+@AllArgsConstructor
+@Builder
 @EntityListeners(AuditingEntityListener.class)
-public class Scrap {
+public class ReadingHistory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "scrap_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id", nullable = false)
+    @JoinColumn(name = "member_id")
     private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "article_id", nullable = false)
+    @JoinColumn(name = "article_id")
     private Article article;
 
     @CreatedDate
-    @Column(name = "create_at", updatable = false)
-    private LocalDateTime createAt;
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
 
-    @Builder
-    public Scrap(Member member, Article article) {
-        this.member = member;
-        this.article = article;
-    }
+    private Integer readTimeSeconds;
 }

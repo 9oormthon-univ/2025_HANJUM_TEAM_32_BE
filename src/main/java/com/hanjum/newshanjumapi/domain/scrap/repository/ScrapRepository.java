@@ -1,6 +1,6 @@
 package com.hanjum.newshanjumapi.domain.scrap.repository;
 
-import com.hanjum.newshanjumapi.domain.Article;
+import com.hanjum.newshanjumapi.domain.article.entity.Article;
 import com.hanjum.newshanjumapi.domain.member.entity.Member;
 import com.hanjum.newshanjumapi.domain.scrap.entity.Scrap;
 import org.springframework.data.domain.Page;
