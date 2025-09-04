@@ -34,7 +34,7 @@ public class Scrap {
 
     @CreatedDate
     @Column(name = "create_at", updatable = false)
-    private LocalDateTime createAt;
+    private LocalDateTime createdAt;
 
     @Builder
     public Scrap(Member member, Article article) {

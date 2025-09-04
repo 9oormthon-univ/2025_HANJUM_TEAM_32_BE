@@ -14,10 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/members")
-public class MemberController {
+public class MemberController implements MemberDocsController{
 
     private final MemberService memberService;
 
+    @Override
     @GetMapping("/me")
     public ResponseEntity<ApiResponse<MemberResponseDto>> getMyInfo(
             @AuthenticationPrincipal String email

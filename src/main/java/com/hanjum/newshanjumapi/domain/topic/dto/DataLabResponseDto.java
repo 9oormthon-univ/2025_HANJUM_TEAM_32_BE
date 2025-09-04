@@ -7,7 +7,7 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor
-@JsonIgnoreProperties(ignoreUnknown = true) // 응답의 모든 필드를 매핑하지 않을 경우 사용
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class DataLabResponseDto {
     private List<Result> results;
 

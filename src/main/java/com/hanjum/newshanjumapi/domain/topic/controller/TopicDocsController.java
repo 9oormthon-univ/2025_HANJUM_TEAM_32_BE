@@ -1,6 +1,5 @@
 package com.hanjum.newshanjumapi.domain.topic.controller;
 
-
 import com.hanjum.newshanjumapi.domain.topic.dto.PopularTopicDto;
 import com.hanjum.newshanjumapi.domain.topic.dto.TopicRequestDto;
 import com.hanjum.newshanjumapi.domain.topic.dto.TopicResponseDto;
@@ -10,7 +9,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.util.List;
 
@@ -28,7 +26,7 @@ public interface TopicDocsController {
 
     @Operation(summary = "내 관심 토픽 저장", description = "현재 로그인된 사용자의 관심 토픽을 저장/수정합니다.")
     ResponseEntity<ApiResponse<String>> saveMyTopics(
-            @Parameter(hidden = true) OAuth2User oauth2User,
+            @Parameter(hidden = true) String email,
             @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "선택한 토픽 ID 리스트") TopicRequestDto requestDto
     );
 }

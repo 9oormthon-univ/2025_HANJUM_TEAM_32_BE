@@ -13,15 +13,17 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/topics")
-public class TopicController {
+public class TopicController implements TopicDocsController{
 
     private final TopicService topicService;
 
+    @Override
     @GetMapping
     public ResponseEntity<ApiResponse<List<TopicResponseDto>>> getAllTopics() {
         return ResponseEntity.ok(ApiResponse.onSuccess(topicService.getAllTopics()));
     }
 
+    @Override
     @PostMapping("/me")
     public ResponseEntity<ApiResponse<String>> saveMyTopics(
             @AuthenticationPrincipal String email,
@@ -31,11 +33,13 @@ public class TopicController {
         return ResponseEntity.ok(ApiResponse.onSuccess("관심 토픽이 성공적으로 저장되었습니다."));
     }
 
+    @Override
     @GetMapping("/popular")
     public ResponseEntity<ApiResponse<List<PopularTopicDto>>> getPopularTopics() {
         return ResponseEntity.ok(ApiResponse.onSuccess(topicService.getPopularTopics()));
     }
 
+    @Override
     @GetMapping("/trends/weekly")
     public ResponseEntity<ApiResponse<List<TopicTrendDto>>> getWeeklyTrends() {
         return ResponseEntity.ok(ApiResponse.onSuccess(topicService.getRealtimeTopicTrends()));
