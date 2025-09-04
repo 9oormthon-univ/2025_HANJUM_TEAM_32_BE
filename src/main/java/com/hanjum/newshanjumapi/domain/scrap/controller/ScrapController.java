@@ -20,10 +20,11 @@ import java.util.Optional;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/scraps")
-public class ScrapController {
+public class ScrapController implements ScrapDocsController{
 
     private final ScrapService scrapService;
 
+    @Override
     @PostMapping
     public ResponseEntity<ApiResponse<Long>> saveScrap(
             @AuthenticationPrincipal String email,
@@ -33,6 +34,7 @@ public class ScrapController {
         return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.onSuccess(scrapId));
     }
 
+    @Override
     @GetMapping
     public ResponseEntity<ApiResponse<Page<ScrapResponseDto>>> getScraps(
             @AuthenticationPrincipal String email,
@@ -43,6 +45,7 @@ public class ScrapController {
         return ResponseEntity.ok(ApiResponse.onSuccess(scraps));
     }
 
+    @Override
     @DeleteMapping("/{scrapId}")
     public ResponseEntity<ApiResponse<Void>> deleteScrap(
             @AuthenticationPrincipal String email,

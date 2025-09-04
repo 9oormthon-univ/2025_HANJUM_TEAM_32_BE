@@ -10,7 +10,7 @@ import java.util.List;
 public class DataLabRequestDto {
     private String startDate;
     private String endDate;
-    private String timeUnit; // date, week, month
+    private String timeUnit;
     private List<KeywordGroup> keywordGroups;
 
     @Getter
@@ -20,12 +20,11 @@ public class DataLabRequestDto {
         private List<String> keywords;
     }
 
-    // 서비스 요구사항에 맞게 요청 DTO를 생성하는 정적 메서드
     public static DataLabRequestDto buildForWeeklyTrend(String groupName, List<String> keywords) {
         DataLabRequestDto requestDto = new DataLabRequestDto();
         requestDto.startDate = LocalDate.now().minusWeeks(1).toString();
         requestDto.endDate = LocalDate.now().toString();
-        requestDto.timeUnit = "date"; // 일간 트렌드
+        requestDto.timeUnit = "date";
         requestDto.keywordGroups = List.of(
                 KeywordGroup.builder()
                         .groupName(groupName)

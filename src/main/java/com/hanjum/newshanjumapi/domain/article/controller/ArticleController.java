@@ -16,18 +16,20 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
-public class ArticleController {
+public class ArticleController implements ArticleDocsController {
 
     private final ArticleService articleService;
     private final PreferenceService preferenceService;
     private final MemberService memberService;
 
+    @Override
     @GetMapping("/daily-articles")
     public ResponseEntity<ApiResponse<DailyNewsResponse>> getOneByPage(@RequestParam(defaultValue = "1") int page) {
         DailyNewsResponse response = articleService.getDailyArticles(page);
         return ResponseEntity.ok(ApiResponse.onSuccess(response));
     }
 
+    @Override
     @PostMapping("/articles/{articleId}/preference")
     public ResponseEntity<ApiResponse<PreferResponse>> setPrefer(
             @PathVariable Long articleId,

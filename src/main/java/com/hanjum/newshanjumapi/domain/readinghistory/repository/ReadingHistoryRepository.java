@@ -1,4 +1,4 @@
-package com.hanjum.newshanjumapi.domain.topic.repository;
+package com.hanjum.newshanjumapi.domain.readinghistory.repository;
 
 import com.hanjum.newshanjumapi.domain.member.entity.Member;
 import com.hanjum.newshanjumapi.domain.topic.entity.ReadingHistory;
@@ -22,4 +22,10 @@ public interface ReadingHistoryRepository extends JpaRepository<ReadingHistory, 
     @Query("SELECT AVG(rh.readTimeSeconds) FROM ReadingHistory rh " +
             "WHERE rh.member = :member AND rh.createdAt >= :startDate")
     Optional<Double> findAverageReadTimeByMember(@Param("member") Member member, @Param("startDate") LocalDateTime startDate);
+
+    @Query("SELECT r.article.category, COUNT(r) FROM ReadingHistory r WHERE r.member = :member GROUP BY r.article.category")
+    List<Object[]> countByCategory(@Param("member") Member member);
+
+    @Query("SELECT AVG(r.readTimeSeconds) FROM ReadingHistory r WHERE r.member = :member")
+    Optional<Double> findAverageReadTimeByMember(@Param("member") Member member);
 }

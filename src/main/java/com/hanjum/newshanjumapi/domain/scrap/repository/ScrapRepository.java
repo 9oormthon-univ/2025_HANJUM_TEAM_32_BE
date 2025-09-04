@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,4 +26,6 @@ public interface ScrapRepository extends JpaRepository<Scrap, Long> {
     Page<Scrap> findByMemberAndArticle_Category(Member member, Article.Category category, Pageable pageable);
 
     void deleteById(Long scrapId);
+
+    Integer countByMemberAndCreatedAtAfter(Member member, LocalDateTime startDate);
 }
