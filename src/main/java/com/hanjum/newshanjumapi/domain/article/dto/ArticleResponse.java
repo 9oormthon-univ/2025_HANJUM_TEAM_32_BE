@@ -1,6 +1,7 @@
 package com.hanjum.newshanjumapi.domain.article.dto;
 
 import com.hanjum.newshanjumapi.domain.article.entity.Article;
+import com.hanjum.newshanjumapi.domain.article.util.DefaultImageUtil;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -25,6 +26,8 @@ public class ArticleResponse {
         this.pubDate = article.getPubDate();
         this.topic = article.getTopic().getName();
         this.category = article.getCategory().name();
-        this.imageUrl = article.getImageUrl();
+        this.imageUrl =
+                (article.getImageUrl() != null && !article.getImageUrl().isBlank())
+                ? article.getImageUrl() : DefaultImageUtil.getDefaultImage(article.getCategory());
     }
 }
