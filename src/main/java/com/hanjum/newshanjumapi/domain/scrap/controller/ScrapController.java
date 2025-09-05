@@ -39,7 +39,7 @@ public class ScrapController implements ScrapDocsController{
     public ResponseEntity<ApiResponse<Page<ScrapResponseDto>>> getScraps(
             @AuthenticationPrincipal String email,
             @RequestParam(value = "category", required = false) Optional<Article.Category> category,
-            @PageableDefault(sort = "createAt", direction = Sort.Direction.DESC) Pageable pageable
+            @PageableDefault(sort = "createAt", direction = Sort.Direction.DESC, size = 5) Pageable pageable
     ) {
         Page<ScrapResponseDto> scraps = scrapService.getScraps(email, category, pageable);
         return ResponseEntity.ok(ApiResponse.onSuccess(scraps));

@@ -35,6 +35,9 @@ public class Article {
     @Column(columnDefinition = "TIMESTAMP", nullable = false)
     private LocalDateTime selectedAt;
 
+    @Column(columnDefinition = "TEXT")
+    private String content;
+
     @Column
     private String imageUrl;
 
@@ -45,6 +48,12 @@ public class Article {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "topic_id")
     private Topic topic;
+
+    @Column(columnDefinition = "TEXT")
+    private String summary;
+
+    @Column(columnDefinition = "TEXT")
+    private String aiCommentary;
 
     public enum Category {
         POLITICS,
