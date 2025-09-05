@@ -6,14 +6,18 @@ import org.jsoup.nodes.Document;
 public class ThumbnailExtractor {
     public static String fetchThumbnail(String articleUrl) {
 
-        try{
+        try {
             Document doc = Jsoup.connect(articleUrl).get();
 
-            return doc.select("meta[property=og:image]").attr("content");
-        }catch(Exception e){
+            String thumbnail = doc.select("meta[property=og:image]").attr("content");
+            if (thumbnail == null || thumbnail.isBlank() || !thumbnail.startsWith("http")) {
+                return null;
+            }
+            return thumbnail;
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
-
     }
+
 }
