@@ -83,7 +83,7 @@ public class AnalysisService {
             return "아직 읽은 기사가 없어요. 오늘의 뉴스를 읽고 관심사를 분석해보세요!";
         }
         String prompt = String.format("%s 분야에 대한 사용자의 관심을 바탕으로, 함께 관심을 가질만한 관련 토픽 2가지를 '토픽1'과 '토픽2' 형식으로만 추천해줘.", category);
-        String recommendedTopics = gptService.getGptResponse(prompt);
+        String recommendedTopics = gptService.generateTopicRecommendation(category);
 
         return String.format("%s 분야에 관심이 높으시네요! %s 토픽도 추가해보세요.", category, recommendedTopics);
     }

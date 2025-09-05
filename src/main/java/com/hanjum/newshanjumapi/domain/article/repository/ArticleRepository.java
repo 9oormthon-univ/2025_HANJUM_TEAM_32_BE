@@ -19,4 +19,8 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
     @Query("SELECT a FROM Article a WHERE DATE(a.selectedAt) = :selectedDate")
     List<Article> findBySelectedAtDate(@Param("selectedDate") LocalDate selectedDate);
 
+    boolean existsByArticleUrl(String articleUrl);
+
+    List<Article> findByContentIsNull();
+
 }
