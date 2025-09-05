@@ -6,6 +6,7 @@ import com.hanjum.newshanjumapi.domain.article.dto.NaverNewsResponse;
 import com.hanjum.newshanjumapi.domain.article.entity.Article;
 import com.hanjum.newshanjumapi.domain.article.repository.ArticleRepository;
 import com.hanjum.newshanjumapi.domain.article.util.DateTimeUtil;
+import com.hanjum.newshanjumapi.domain.article.util.ThumbnailExtractor;
 import com.hanjum.newshanjumapi.domain.topic.entity.Topic;
 import com.hanjum.newshanjumapi.domain.topic.repository.TopicRepository;
 import lombok.RequiredArgsConstructor;
@@ -108,13 +109,17 @@ public class ArticleService {
                     LocalDateTime pubDt = DateTimeUtil.parseNaverDate(it.pubDate());
                     Article.Category category = mapKeywordToCategory(keyword);
 
+                    String articleUrl = it.originallink() != null && !it.originallink().isBlank() ? it.originallink() : it.link();
+                    String thumbnailUrl = ThumbnailExtractor.fetchThumbnail(articleUrl);
+
                     return Article.builder()
                             .title(it.title())
                             .description(it.description())
-                            .articleUrl(it.originallink() != null && !it.originallink().isBlank() ? it.originallink() : it.link())
+                            .articleUrl(articleUrl)
                             .pubDate(pubDt)
                             .topic(topic)
                             .category(category)
+                            .imageUrl(thumbnailUrl)
                             .build();
                 })
                 .collect(Collectors.toList());
