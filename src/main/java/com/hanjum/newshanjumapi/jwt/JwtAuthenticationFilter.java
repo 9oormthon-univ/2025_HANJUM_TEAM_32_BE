@@ -30,6 +30,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
+
+        // --- [핵심 수정 사항] ---
+        // Preflight 요청(OPTIONS)은 인증 필터를 통과시킵니다.
+        // CORS 사전 요청은 인증 정보(JWT)를 담고 있지 않으므로, 여기서 토큰 검증 로직을 실행하면 안됩니다.
+        if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+        // --- [여기까지 수정] ---
+
         String token = resolveToken(request);
 
         if (token != null && jwtTokenProvider.validateToken(token)) {
@@ -56,4 +66,5 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         return new UsernamePasswordAuthenticationToken(email, "", Collections.singleton(new SimpleGrantedAuthority("ROLE_USER")));
     }
 }
+
 
