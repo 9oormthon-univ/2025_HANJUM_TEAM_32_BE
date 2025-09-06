@@ -35,15 +35,10 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    public boolean validateToken(String token) {
-        try {
-            Jwts.parser().setSigningKey(key).build().parseClaimsJws(token);
-            return true;
-        } catch (Exception e) {
-            // 토큰이 유효하지 않을 경우 (예: 만료, 서명 오류 등)
-            // 실제 프로덕션에서는 로깅을 추가하는 것이 좋습니다.
-            return false;
-        }
+    // [수정] boolean을 반환하는 대신, 유효하지 않은 경우 예외를 던지도록 변경합니다.
+    // 이렇게 해야 Spring Security의 예외 처리 메커니즘을 제대로 활용할 수 있습니다.
+    public void validateToken(String token) {
+        Jwts.parser().setSigningKey(key).build().parseClaimsJws(token);
     }
 
     public Claims getClaims(String token) {
