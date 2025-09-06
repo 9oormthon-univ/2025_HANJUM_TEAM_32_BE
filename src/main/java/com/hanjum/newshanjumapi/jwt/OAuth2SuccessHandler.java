@@ -35,7 +35,7 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 
         String token = jwtTokenProvider.createToken(member.getEmail());
 
-        String targetUrl = UriComponentsBuilder.fromUriString("http://localhost:3000/oauth/redirect") // 👈 프론트엔드 주소로 변경
+        String targetUrl = UriComponentsBuilder.fromUriString("http://localhost:3000/topics") // 👈 프론트엔드 주소로 변경
                 .queryParam("token", token)
                 .build().toUriString();
 
