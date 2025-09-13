@@ -16,11 +16,7 @@
 <img width="568" height="1136" alt="image" src="https://github.com/user-attachments/assets/72ff541f-acc7-456b-b78c-7dda4b80dc20" />
 <img width="556" height="1136" alt="image" src="https://github.com/user-attachments/assets/9548c462-d21d-4724-a16f-823d617ccace" />
 <h3>뉴스스트랩</h3>
-![Uploading image.png…]()
-
-
-
-
+<img width="556" height="1136" alt="image" src="https://github.com/user-attachments/assets/a0467c64-11ef-44d3-be01-8f7baa2d5a6f" />
 
 <h1>시스템 아키텍처</h1>
 <img width="676" height="299" alt="스크린샷 2025-09-14 00 55 11" src="https://github.com/user-attachments/assets/a2170354-b9db-41c7-b05b-ac487e08ae62" />
