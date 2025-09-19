@@ -28,3 +28,10 @@
 
 <h1>시스템 아키텍처</h1>
 <img width="676" height="299" alt="스크린샷 2025-09-14 00 55 11" src="https://github.com/user-attachments/assets/a2170354-b9db-41c7-b05b-ac487e08ae62" />
+
+<hr>
+<h1>팀원</h1>
+| BackEnd | BackEnd | BackEnd | FrontEnd |
+|---|---|---|
+| 이나경 | 김지혜 | 이서현 | 이혜은 |
+
