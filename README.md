@@ -32,6 +32,9 @@
 <hr>
 <h1>팀원😀</h1>
 
-| 역할 | BackEnd | BackEnd | BackEnd | FrontEnd |
-|---|---|---|---|
-| 팀원 | 이나경 | 김지혜 | 이서현 | 이혜은 |
+| 역할 | 이름 |
+|:---:|:---|
+| BackEnd | [이나경](https://github.com/nanakyeong) |
+| BackEnd | [김지혜](https://github.com/zeehyee) |
+| FrontEnd | [이서현](https://github.com/leehyeeunn) |
+| FrontEnd | [이혜은](https://github.com/seohyunlee-coding) |
